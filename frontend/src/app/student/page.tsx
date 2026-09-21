@@ -34,8 +34,8 @@ export default function StudentDashboard() {
   const [notices, setNotices] = useState<NoticeItem[]>([]);
 
   useEffect(() => {
-    api.getUpcomingAssessments(5).then((data) => setUpcomingAssessments(data));
-    api.getNotices("All", "All", 3).then((data) => setNotices(data));
+    api.getUpcomingAssessments().then((data) => setUpcomingAssessments(data ? data.slice(0, 5) : []));
+    api.getNotices("All", "All").then((data) => setNotices(data ? data.slice(0, 3) : []));
   }, []);
 
   const percentage = conducted > 0 ? Math.round((attended / conducted) * 100) : 0;
